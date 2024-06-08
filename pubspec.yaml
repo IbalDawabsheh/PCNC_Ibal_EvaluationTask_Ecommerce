@@ -15,6 +15,7 @@ dependencies:
   http: ^1.2.1
   http_status: ^3.3.3
   easy_image_viewer: ^1.4.1
+  google_fonts: ^6.2.1
 
 
 dev_dependencies:

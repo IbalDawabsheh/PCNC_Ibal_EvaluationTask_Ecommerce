@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:evaluation_task_ecommerce/Screens/SplashScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   runApp(const MainApp());
@@ -9,6 +10,7 @@ void main() async {
 var myTheme = ThemeData(
   colorScheme: lightColorScheme,
   primaryColor: lightColorScheme.primary,
+  textTheme: GoogleFonts.montserratTextTheme(),
 );
 
 class MainApp extends StatelessWidget {

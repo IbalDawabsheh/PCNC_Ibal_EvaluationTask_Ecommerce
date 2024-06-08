@@ -1,6 +1,7 @@
 import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/ProductCard.dart';
 
@@ -20,9 +21,9 @@ class SearchScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Search",
-          style: TextStyle(
-            color: Get.theme.primaryColor,
-          ),
+          style: GoogleFonts.libreCaslonText().copyWith(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.secondary),
         ),
         centerTitle: true,
       ),

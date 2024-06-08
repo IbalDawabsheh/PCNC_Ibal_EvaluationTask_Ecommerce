@@ -3,6 +3,7 @@ import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
 import 'package:evaluation_task_ecommerce/widgets/ProductCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key, required this.id});
@@ -16,9 +17,9 @@ class ProductsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Products",
-          style: TextStyle(
-            color: Get.theme.primaryColor,
-          ),
+          style: GoogleFonts.libreCaslonText().copyWith(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.secondary),
         ),
         centerTitle: true,
       ),

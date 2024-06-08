@@ -2,6 +2,7 @@ import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
 import 'package:evaluation_task_ecommerce/widgets/CategoryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CategroiesScreen extends StatelessWidget {
   CategroiesScreen({super.key});
@@ -13,9 +14,9 @@ class CategroiesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Categories",
-          style: TextStyle(
-            color: Get.theme.primaryColor,
-          ),
+          style: GoogleFonts.libreCaslonText().copyWith(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.secondary),
         ),
         centerTitle: true,
       ),
