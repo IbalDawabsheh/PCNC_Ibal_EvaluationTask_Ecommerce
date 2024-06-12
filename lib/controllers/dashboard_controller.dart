@@ -1,16 +1,17 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'package:evaluation_task_ecommerce/Services/storage_service.dart';
 import 'package:evaluation_task_ecommerce/controllers/categories_controller.dart';
 import 'package:evaluation_task_ecommerce/controllers/products_controller.dart';
 import 'package:evaluation_task_ecommerce/Services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardController extends GetxController {
-  ApiService api = Get.put(ApiService());
+  ApiService api = Get.find<ApiService>();
+  StorageService storage = Get.find<StorageService>();
   CategoriesController categoriesController = Get.put(CategoriesController());
   ProductsController productsController = Get.put(ProductsController());
   RxList categories = [].obs;
@@ -27,9 +28,7 @@ class DashboardController extends GetxController {
 
   Future<void> fetchAvatar() async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      String? accessToken = sharedPreferences.getString("access_token");
+      String? accessToken = await storage.read("access_token");
       Map<String, String> requestHeaders = {
         "Authorization": "Bearer $accessToken",
       };

@@ -1,6 +1,6 @@
-import 'package:evaluation_task_ecommerce/controllers/categories_controller.dart';
-import 'package:evaluation_task_ecommerce/controllers/search_controller.dart';
-import 'package:evaluation_task_ecommerce/widgets/category_card.dart';
+import '/controllers/categories_controller.dart';
+import '/controllers/search_controller.dart';
+import '/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +17,7 @@ class CategroiesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Categories",
+          "categories".tr,
           style: GoogleFonts.libreCaslonText().copyWith(
               fontWeight: FontWeight.bold,
               color: Get.theme.colorScheme.secondary),
@@ -42,7 +42,7 @@ class CategroiesScreen extends StatelessWidget {
       onChanged: (value) {
         searchController.search("categories");
       },
-      hintText: "Search any Product...",
+      hintText: "searchAny".tr,
       hintStyle:
           const MaterialStatePropertyAll(TextStyle(color: Colors.black38)),
       elevation: const MaterialStatePropertyAll(0),

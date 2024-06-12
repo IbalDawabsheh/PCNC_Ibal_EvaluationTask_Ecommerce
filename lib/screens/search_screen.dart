@@ -1,7 +1,7 @@
-import 'package:evaluation_task_ecommerce/controllers/search_controller.dart';
-import 'package:evaluation_task_ecommerce/models/product.dart';
-import 'package:evaluation_task_ecommerce/models/category.dart';
-import 'package:evaluation_task_ecommerce/widgets/search_card.dart';
+import '/controllers/search_controller.dart';
+import '/models/product.dart';
+import '/models/category.dart';
+import '/widgets/search_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +21,7 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Search",
+          "search".tr,
           style: GoogleFonts.libreCaslonText().copyWith(
               fontWeight: FontWeight.bold,
               color: Get.theme.colorScheme.secondary),
@@ -47,7 +47,7 @@ class SearchScreen extends StatelessWidget {
       onChanged: (value) {
         controller.search("both");
       },
-      hintText: "Search any Product...",
+      hintText: "searchAny".tr,
       hintStyle:
           const MaterialStatePropertyAll(TextStyle(color: Colors.black38)),
       elevation: const MaterialStatePropertyAll(0),
@@ -66,7 +66,7 @@ class SearchScreen extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/noResults.png"),
                   const SizedBox(height: 20),
-                  const Text("No results found")
+                  Text("noResults".tr)
                 ],
               ),
             )

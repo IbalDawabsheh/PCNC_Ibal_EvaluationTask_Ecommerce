@@ -1,11 +1,11 @@
-import 'package:evaluation_task_ecommerce/controllers/dashboard_controller.dart';
-import 'package:evaluation_task_ecommerce/screens/categories_screen.dart';
-import 'package:evaluation_task_ecommerce/screens/search_screen.dart';
-import 'package:evaluation_task_ecommerce/widgets/app_bar.dart';
-import 'package:evaluation_task_ecommerce/widgets/category_item.dart';
-import 'package:evaluation_task_ecommerce/widgets/drawer.dart';
-import 'package:evaluation_task_ecommerce/widgets/nav_bar.dart';
-import 'package:evaluation_task_ecommerce/widgets/product_card.dart';
+import '/controllers/dashboard_controller.dart';
+import '/screens/categories_screen.dart';
+import '/screens/search_screen.dart';
+import '/widgets/app_bar.dart';
+import '/widgets/category_item.dart';
+import '/widgets/drawer.dart';
+import '/widgets/nav_bar.dart';
+import '/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       onTap: () {
         Get.to(() => SearchScreen());
       },
-      hintText: "Search any Product...",
+      hintText: "searchAny".tr,
       hintStyle:
           const MaterialStatePropertyAll(TextStyle(color: Colors.black38)),
       elevation: const MaterialStatePropertyAll(0),
@@ -68,16 +68,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          "All Categories",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        Text(
+          "allCategories".tr,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         TextButton(
             onPressed: () {
               Get.to(() => CategroiesScreen());
             },
             child: Text(
-              "See All",
+              "seeAll".tr,
               style: TextStyle(color: Get.theme.colorScheme.onBackground),
             )),
       ],
@@ -135,7 +135,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Trending Products",
+                    "trending".tr,
                     style: TextStyle(
                         color: Get.theme.colorScheme.onSecondary,
                         fontSize: 14,
@@ -168,8 +168,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       borderRadius: BorderRadius.circular(4.0))),
                 ),
                 onPressed: () {},
-                child: const Row(
-                  children: [Text("View All"), Icon(Icons.arrow_right_alt)],
+                child: Row(
+                  children: [
+                    Text("viewAll".tr),
+                    const Icon(Icons.arrow_right_alt)
+                  ],
                 ))
           ],
         ),

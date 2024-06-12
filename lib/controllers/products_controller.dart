@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ProductsController extends GetxController {
-  ApiService api = Get.put(ApiService());
+  ApiService api = Get.find<ApiService>();
   RxList products = [].obs;
   RxList productsByCategory = [].obs;
 

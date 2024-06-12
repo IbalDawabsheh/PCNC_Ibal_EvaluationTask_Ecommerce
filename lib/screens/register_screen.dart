@@ -1,6 +1,6 @@
-import 'package:evaluation_task_ecommerce/controllers/register_controller.dart';
-import 'package:evaluation_task_ecommerce/screens/login_screen.dart';
-import 'package:evaluation_task_ecommerce/utils/validation.dart';
+import '/controllers/register_controller.dart';
+import '/screens/login_screen.dart';
+import '/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,9 +50,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget titleText() {
-    return const Text(
-      "Create an account",
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
+    return Text(
+      "createAccount".tr,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
       textAlign: TextAlign.start,
     );
   }
@@ -62,8 +62,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       controller: controller.nameController,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
-          labelText: 'Username',
-          hintText: 'Please enter your username.',
+          labelText: "userName".tr,
+          hintText: "userNameHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/images/user.png", width: 30, height: 30),
@@ -82,8 +82,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       controller: controller.emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          labelText: 'Email',
-          hintText: 'Please enter your email.',
+          labelText: "emailLabel".tr,
+          hintText: "emailHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child:
@@ -102,8 +102,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return TextFormField(
       controller: controller.passwordController,
       decoration: InputDecoration(
-          labelText: 'Password',
-          hintText: 'Please enter your password.',
+          labelText: "passwordLabel".tr,
+          hintText: "passwordHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/images/password.png",
@@ -131,8 +131,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return TextFormField(
       controller: controller.passwordConfirmController,
       decoration: InputDecoration(
-          labelText: 'Confirm Password',
-          hintText: 'Please confirm your password.',
+          labelText: "passwordConfirmLabel".tr,
+          hintText: "passwordConfirmHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/images/password.png",
@@ -152,13 +152,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       obscureText: _passwordInvisible,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => Validation.validatePassword(value),
+      validator: (value) => Validation.validateConfirmPassword(
+          controller.passwordController.text, value),
     );
   }
 
   Widget agreementText() {
-    return const Text(
-        "By clicking the Register button, you agree to the public offer");
+    return Text("registerAgreement".tr);
   }
 
   Widget registerButton() {
@@ -171,11 +171,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         onPressed: () {
           controller.register();
         },
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Create Account",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            "createAccount".tr,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
         ));
   }
@@ -184,14 +184,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("I Already Have An Account"),
+        Text("alreadyHaveAccount".tr),
         TextButton(
             onPressed: () {
-              Get.offAll(() => const LoginScreen());
+              Get.offAll(() => LoginScreen());
             },
-            child: const Text(
-              "Login",
-              style: TextStyle(decoration: TextDecoration.underline),
+            child: Text(
+              "login".tr,
+              style: const TextStyle(decoration: TextDecoration.underline),
             ))
       ],
     );

@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
-import 'package:evaluation_task_ecommerce/controllers/categories_controller.dart';
-import 'package:evaluation_task_ecommerce/controllers/products_controller.dart';
-import 'package:evaluation_task_ecommerce/Services/api_service.dart';
+import '/controllers/categories_controller.dart';
+import '/controllers/products_controller.dart';
+import '/Services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchScreenController extends GetxController {
-  ApiService api = Get.put(ApiService());
+  ApiService api = Get.find<ApiService>();
   CategoriesController categoriesController = Get.put(CategoriesController());
   ProductsController productsController = Get.put(ProductsController());
   RxList categories = [].obs;

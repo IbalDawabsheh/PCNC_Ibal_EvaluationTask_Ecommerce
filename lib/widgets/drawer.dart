@@ -1,9 +1,11 @@
-import 'package:evaluation_task_ecommerce/screens/login_screen.dart';
+import 'package:evaluation_task_ecommerce/controllers/logout_controller.dart';
+
+import '/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Drawer buildDrawer(BuildContext context) {
+  LogoutController controller = Get.put(LogoutController());
   return Drawer(
     backgroundColor: Get.theme.primaryColor,
     child: SafeArea(
@@ -18,25 +20,25 @@ Drawer buildDrawer(BuildContext context) {
               width: 32,
               height: 32,
             ),
-            title: const Text('Logout'),
+            title: Text("logout".tr),
             onTap: () {
               showDialog(
                   context: context,
                   builder: (c) => AlertDialog(
-                          title: const Text("Logout"),
-                          content:
-                              const Text("Are you sure you want to logout?"),
+                          title: Text("logout".tr),
+                          content: Text("logoutConfirm".tr),
                           actions: <Widget>[
                             TextButton(
                                 onPressed: () {
                                   Navigator.of(c).pop();
                                 },
-                                child: const Text("Cancel")),
+                                child: Text("cancel".tr)),
                             TextButton(
                                 onPressed: () {
-                                  logout();
+                                  controller.logout();
+                                  Get.offAll(() => LoginScreen());
                                 },
-                                child: const Text("Confirm")),
+                                child: Text("confirm".tr)),
                           ]));
             },
           ),
@@ -44,10 +46,4 @@ Drawer buildDrawer(BuildContext context) {
       ),
     ),
   );
-}
-
-logout() async {
-  var sharedPreferences = await SharedPreferences.getInstance();
-  sharedPreferences.clear();
-  Get.offAll(() => const LoginScreen());
 }

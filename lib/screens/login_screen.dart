@@ -1,53 +1,45 @@
-import 'package:evaluation_task_ecommerce/controllers/login_controller.dart';
-import 'package:evaluation_task_ecommerce/screens/register_screen.dart';
-import 'package:evaluation_task_ecommerce/utils/validation.dart';
+import '/controllers/login_controller.dart';
+import '/screens/register_screen.dart';
+import '/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  bool _passwordInvisible = true;
+class LoginScreen extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(28.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                titleText(),
-                const SizedBox(height: 30),
-                emailField(),
-                const SizedBox(height: 30),
-                passwordField(),
-                forgotPassLink(),
-                const SizedBox(height: 30),
-                loginButton(),
-                const SizedBox(height: 30),
-                accountSignUpLink()
-              ],
+      body: Obx(() => SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    titleText(),
+                    const SizedBox(height: 30),
+                    emailField(),
+                    const SizedBox(height: 30),
+                    passwordField(),
+                    forgotPassLink(),
+                    const SizedBox(height: 30),
+                    loginButton(),
+                    const SizedBox(height: 30),
+                    accountSignUpLink()
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 
   Widget titleText() {
-    return const Text(
-      "Welcome Back!",
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
+    return Text(
+      "welcome".tr,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
       textAlign: TextAlign.start,
     );
   }
@@ -56,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return TextFormField(
       controller: controller.emailController,
       decoration: InputDecoration(
-          labelText: 'Username or Email',
-          hintText: 'Please enter your username or email.',
+          labelText: "userNameLabel".tr,
+          hintText: "userNameEmailHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/images/user.png", width: 30, height: 30),
@@ -75,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return TextFormField(
       controller: controller.passwordController,
       decoration: InputDecoration(
-          labelText: 'Password',
-          hintText: 'Please enter your password.',
+          labelText: "passwordLabel".tr,
+          hintText: "passwordHint".tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/images/password.png",
@@ -85,15 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
             onPressed: () {
-              setState(() {
-                _passwordInvisible = !_passwordInvisible;
-              });
+              controller.toggleVisibility();
             },
           ),
           contentPadding: const EdgeInsets.all(16),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
-      obscureText: _passwordInvisible,
+      obscureText: controller.passwordInvisible.value,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) => Validation.validatePassword(value),
@@ -104,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        TextButton(onPressed: () {}, child: const Text("Forgot Password?")),
+        TextButton(onPressed: () {}, child: Text("forgotPassword".tr)),
       ],
     );
   }
@@ -119,11 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           controller.login();
         },
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Login",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            "login".tr,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
         ));
   }
@@ -132,14 +122,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Create an account"),
+        Text("createAccount".tr),
         TextButton(
             onPressed: () {
               Get.offAll(() => const RegisterScreen());
             },
-            child: const Text(
-              "Sign Up",
-              style: TextStyle(decoration: TextDecoration.underline),
+            child: Text(
+              "signUp".tr,
+              style: const TextStyle(decoration: TextDecoration.underline),
             ))
       ],
     );

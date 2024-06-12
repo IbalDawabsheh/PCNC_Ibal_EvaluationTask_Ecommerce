@@ -1,4 +1,4 @@
-import 'package:evaluation_task_ecommerce/screens/products_screen.dart';
+import '/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

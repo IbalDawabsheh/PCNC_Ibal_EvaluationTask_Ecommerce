@@ -1,10 +1,12 @@
-import 'package:evaluation_task_ecommerce/Services/api_service.dart';
+import 'package:evaluation_task_ecommerce/Services/storage_service.dart';
+
+import '/Services/api_service.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserStatusController extends GetxController {
-  ApiService api = Get.put(ApiService());
+  ApiService api = Get.find<ApiService>();
+  StorageService storage = Get.find<StorageService>();
 
   @override
   void onInit() {
@@ -16,8 +18,7 @@ class UserStatusController extends GetxController {
   String refreshToken = "";
 
   void checkLoginStatus() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    refreshToken = sharedPreferences.getString("refresh_token") ?? "";
+    refreshToken = await storage.read("refresh_token") ?? "";
     if (refreshToken.isEmpty) {
       loggedIn = false;
     } else {
@@ -25,12 +26,10 @@ class UserStatusController extends GetxController {
     }
   }
 
-  void checkTokenExpiration() {
+  bool checkTokenExpiration() {
     bool hasExpired = JwtDecoder.isExpired(refreshToken);
-    if (hasExpired) {
-      loggedIn = false;
-    } else {
-      loggedIn = true;
-    }
+    if (hasExpired) return loggedIn = false;
+
+    return loggedIn = true;
   }
 }

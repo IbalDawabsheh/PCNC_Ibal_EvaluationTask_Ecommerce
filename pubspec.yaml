@@ -11,12 +11,14 @@ dependencies:
     sdk: flutter
   # Downloaded Packages
   get: ^4.6.6
-  shared_preferences: ^2.2.3
   http: ^1.2.1
   http_status: ^3.3.3
   easy_image_viewer: ^1.4.1
   google_fonts: ^6.2.1
   jwt_decoder: ^2.0.1
+  flutter_secure_storage: ^9.2.2
+  flutter_localizations:
+    sdk: flutter
 
 
 dev_dependencies:

@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:evaluation_task_ecommerce/controllers/user_status_controller.dart';
-import 'package:evaluation_task_ecommerce/screens/dashboard_screen.dart';
-import 'package:evaluation_task_ecommerce/screens/login_screen.dart';
+import '/controllers/user_status_controller.dart';
+import '/screens/dashboard_screen.dart';
+import '/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     Timer(const Duration(seconds: 3), () {
       controller.loggedIn
           ? Get.offAll(() => const DashboardScreen())
-          : Get.offAll(() => const LoginScreen());
+          : Get.offAll(() => LoginScreen());
     });
     return Scaffold(
       body: Center(

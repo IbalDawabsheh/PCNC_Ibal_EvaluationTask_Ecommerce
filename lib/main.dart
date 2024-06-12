@@ -1,40 +1,35 @@
+import '/Services/api_service.dart';
+import '/Services/storage_service.dart';
+import '/translations/intl_en.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:evaluation_task_ecommerce/screens/splash_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '/screens/splash_screen.dart';
+import 'theme/theme_data.dart';
 
 void main() async {
+  Get.put(ApiService());
+  Get.put(StorageService());
   runApp(const MainApp());
 }
 
-var myTheme = ThemeData(
-  colorScheme: lightColorScheme,
-  primaryColor: lightColorScheme.primary,
-  textTheme: GoogleFonts.montserratTextTheme(),
-);
-
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+      ],
+      locale: const Locale("en"),
+      translations: Localization(),
       defaultTransition: Transition.fade,
       home: SplashScreen(),
       theme: myTheme,
     );
   }
 }
-
-const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xfff89939),
-    onPrimary: Colors.white,
-    secondary: Color(0xfff2673a),
-    onSecondary: Colors.white,
-    error: Colors.red,
-    onError: Colors.white,
-    background: Colors.white,
-    onBackground: Colors.black,
-    surface: Colors.white,
-    onSurface: Colors.black87,
-    brightness: Brightness.light);

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  ApiService api = Get.put(ApiService());
+  ApiService api = Get.find<ApiService>();
   LoginController loginController = Get.put(LoginController());
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -28,7 +28,7 @@ class RegisterController extends GetxController {
         "email": emailController.text.trim(),
         "name": nameController.text.trim(),
         "password": passwordController.text == passwordConfirmController.text
-            ? passwordController.text.trim()
+            ? passwordController.text
             : "",
         "role": "customer",
         "avatar":

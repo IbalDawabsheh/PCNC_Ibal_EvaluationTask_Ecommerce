@@ -1,4 +1,4 @@
-import 'package:evaluation_task_ecommerce/screens/search_screen.dart';
+import '/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,18 +16,19 @@ NavigationBar buildNavBar() {
     },
     selectedIndex: 0,
     indicatorColor: Get.theme.primaryColor,
-    destinations: const [
+    destinations: [
       NavigationDestination(
-        icon: Icon(Icons.home_outlined),
-        label: "Home",
+        icon: const Icon(Icons.home_outlined),
+        label: "home".tr,
       ),
       NavigationDestination(
-          icon: Icon(Icons.favorite_outline), label: "Wishlist"),
-      NavigationDestination(
+          icon: const Icon(Icons.favorite_outline), label: "wishlist".tr),
+      const NavigationDestination(
           icon: Icon(Icons.shopping_cart_outlined), label: ""),
-      NavigationDestination(icon: Icon(Icons.search_outlined), label: "Search"),
       NavigationDestination(
-          icon: Icon(Icons.settings_outlined), label: "Settings"),
+          icon: const Icon(Icons.search_outlined), label: "search".tr),
+      NavigationDestination(
+          icon: const Icon(Icons.settings_outlined), label: "settings".tr),
     ],
   );
 }
