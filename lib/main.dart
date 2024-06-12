@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import '/Services/api_service.dart';
 import '/Services/storage_service.dart';
 import '/translations/intl_en.dart';
@@ -8,6 +10,7 @@ import '/screens/splash_screen.dart';
 import 'theme/theme_data.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   Get.put(ApiService());
   Get.put(StorageService());
   runApp(const MainApp());
