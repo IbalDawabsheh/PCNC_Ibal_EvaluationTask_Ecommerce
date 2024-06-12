@@ -1,5 +1,6 @@
-import 'package:evaluation_task_ecommerce/Screens/RegisterScreen.dart';
-import 'package:evaluation_task_ecommerce/api/Controller/AuthController.dart';
+import 'package:evaluation_task_ecommerce/controllers/login_controller.dart';
+import 'package:evaluation_task_ecommerce/screens/register_screen.dart';
+import 'package:evaluation_task_ecommerce/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordInvisible = true;
-  final AuthController controller = Get.put(AuthController(), permanent: true);
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Text titleText() {
+  Widget titleText() {
     return const Text(
       "Welcome Back!",
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
@@ -51,32 +52,35 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  TextFormField emailField() {
+  Widget emailField() {
     return TextFormField(
       controller: controller.emailController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           labelText: 'Username or Email',
           hintText: 'Please enter your username or email.',
-          prefixIcon: Icon(
-            Icons.person_rounded,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/user.png", width: 30, height: 30),
           ),
-          contentPadding: EdgeInsets.all(16),
-          border: OutlineInputBorder(
+          contentPadding: const EdgeInsets.all(16),
+          border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       textInputAction: TextInputAction.next,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validateEmail(value),
     );
   }
 
-  TextFormField passwordField() {
+  Widget passwordField() {
     return TextFormField(
       controller: controller.passwordController,
       decoration: InputDecoration(
           labelText: 'Password',
           hintText: 'Please enter your password.',
-          prefixIcon: const Icon(
-            Icons.lock,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/password.png",
+                width: 30, height: 30),
           ),
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
@@ -91,10 +95,12 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       obscureText: _passwordInvisible,
       textInputAction: TextInputAction.done,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validatePassword(value),
     );
   }
 
-  Row forgotPassLink() {
+  Widget forgotPassLink() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -103,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  ElevatedButton loginButton() {
+  Widget loginButton() {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: Get.theme.primaryColor,
@@ -122,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  Row accountSignUpLink() {
+  Widget accountSignUpLink() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

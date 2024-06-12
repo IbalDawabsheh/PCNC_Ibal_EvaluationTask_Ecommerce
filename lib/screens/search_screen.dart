@@ -1,13 +1,14 @@
-import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
+import 'package:evaluation_task_ecommerce/controllers/search_controller.dart';
+import 'package:evaluation_task_ecommerce/models/product.dart';
+import 'package:evaluation_task_ecommerce/models/category.dart';
+import 'package:evaluation_task_ecommerce/widgets/search_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../widgets/ProductCard.dart';
-
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
-  final ApiController controller = Get.put(ApiController());
+  final SearchScreenController controller = Get.put(SearchScreenController());
 
   Widget buildProducts(BuildContext context) {
     List<dynamic> allProducts = controller.products;
@@ -16,7 +17,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.search();
+    controller.search("both");
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,11 +41,11 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  SearchBar searchBar() {
+  Widget searchBar() {
     return SearchBar(
       controller: controller.searchController,
       onChanged: (value) {
-        controller.search();
+        controller.search("both");
       },
       hintText: "Search any Product...",
       hintStyle:
@@ -56,9 +57,9 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Expanded searchResults() {
+  Widget searchResults() {
     return Expanded(
-      child: controller.productsSearched.isEmpty
+      child: controller.searchResults.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -71,20 +72,21 @@ class SearchScreen extends StatelessWidget {
             )
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.6, crossAxisCount: 2),
-              itemCount: controller.productsSearched.length,
+                  childAspectRatio: 0.75, crossAxisCount: 2),
+              itemCount: controller.searchResults.length,
               itemBuilder: (context, index) {
-                final p = controller.productsSearched[index];
-
-                return ProductCard(
-                    title: p.title,
-                    description: p.title,
-                    price: p.price,
-                    image: p.images.first
-                        .toString()
-                        .replaceAll('[', "")
-                        .replaceAll('"', "")
-                        .replaceAll("]", ""));
+                final result = controller.searchResults[index];
+                if (result is Category) {
+                  return SearchCard(
+                      title: result.name, image: result.image.toString());
+                } else if (result is Product) {
+                  return SearchCard(
+                      title: result.title,
+                      description: result.description,
+                      price: result.price,
+                      image: result.images.first.toString());
+                }
+                return null;
               },
             ),
     );

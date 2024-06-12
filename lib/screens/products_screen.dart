@@ -1,6 +1,6 @@
-import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
+import 'package:evaluation_task_ecommerce/controllers/products_controller.dart';
 
-import 'package:evaluation_task_ecommerce/widgets/ProductCard.dart';
+import 'package:evaluation_task_ecommerce/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key, required this.id});
   final int id;
-  final ApiController controller = Get.put(ApiController());
+  final ProductsController controller = Get.put(ProductsController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Expanded productsGrid() {
+  Widget productsGrid() {
     return Expanded(
       child: controller.productsByCategory.isEmpty
           ? Center(
@@ -49,17 +49,14 @@ class ProductsScreen extends StatelessWidget {
             )
           : GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: 0.6,
+              childAspectRatio: 0.75,
               children: controller.productsByCategory
                   .map((p) => ProductCard(
+                      showIcons: true,
                       title: p.title,
                       description: p.title,
                       price: p.price,
-                      image: p.images.first
-                          .toString()
-                          .replaceAll('[', "")
-                          .replaceAll('"', "")
-                          .replaceAll("]", "")))
+                      image: p.images.first.toString()))
                   .toList()),
     );
   }

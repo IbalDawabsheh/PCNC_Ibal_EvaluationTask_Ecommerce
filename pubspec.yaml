@@ -16,6 +16,7 @@ dependencies:
   http_status: ^3.3.3
   easy_image_viewer: ^1.4.1
   google_fonts: ^6.2.1
+  jwt_decoder: ^2.0.1
 
 
 dev_dependencies:

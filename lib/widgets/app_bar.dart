@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-AppBar buildAppBar(String image) {
+AppBar buildAppBar(String image, BuildContext context) {
   return AppBar(
+    leading: Builder(
+        builder: (context) => TextButton(
+              child: Image.asset("assets/images/drawer_icon.png"),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            )),
     title: Row(
       mainAxisSize: MainAxisSize.min,
       children: [

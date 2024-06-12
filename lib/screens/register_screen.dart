@@ -1,5 +1,6 @@
-import 'package:evaluation_task_ecommerce/Screens/LoginScreen.dart';
-import 'package:evaluation_task_ecommerce/api/Controller/AuthController.dart';
+import 'package:evaluation_task_ecommerce/controllers/register_controller.dart';
+import 'package:evaluation_task_ecommerce/screens/login_screen.dart';
+import 'package:evaluation_task_ecommerce/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _passwordInvisible = true;
-  final AuthController controller = Get.put(AuthController());
+  final RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Text titleText() {
+  Widget titleText() {
     return const Text(
       "Create an account",
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 56),
@@ -56,51 +57,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  TextFormField nameField() {
+  Widget nameField() {
     return TextFormField(
       controller: controller.nameController,
       keyboardType: TextInputType.name,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           labelText: 'Username',
           hintText: 'Please enter your username.',
-          prefixIcon: Icon(
-            Icons.person_rounded,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/user.png", width: 30, height: 30),
           ),
-          contentPadding: EdgeInsets.all(16),
-          border: OutlineInputBorder(
+          contentPadding: const EdgeInsets.all(16),
+          border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       textInputAction: TextInputAction.next,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validateName(value),
     );
   }
 
-  TextFormField emailField() {
+  Widget emailField() {
     return TextFormField(
       controller: controller.emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           labelText: 'Email',
           hintText: 'Please enter your email.',
-          prefixIcon: Icon(
-            Icons.email_outlined,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                Image.asset("assets/images/email.png", width: 30, height: 30),
           ),
-          contentPadding: EdgeInsets.all(16),
-          border: OutlineInputBorder(
+          contentPadding: const EdgeInsets.all(16),
+          border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       textInputAction: TextInputAction.next,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validateEmail(value),
     );
   }
 
-  TextFormField passwordField() {
+  Widget passwordField() {
     return TextFormField(
       controller: controller.passwordController,
       decoration: InputDecoration(
           labelText: 'Password',
           hintText: 'Please enter your password.',
-          prefixIcon: const Icon(
-            Icons.lock,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/password.png",
+                width: 30, height: 30),
           ),
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
@@ -115,18 +122,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       obscureText: _passwordInvisible,
       textInputAction: TextInputAction.done,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validatePassword(value),
     );
   }
 
-  TextFormField confirmPasswordField() {
+  Widget confirmPasswordField() {
     return TextFormField(
       controller: controller.passwordConfirmController,
       decoration: InputDecoration(
           labelText: 'Confirm Password',
           hintText: 'Please confirm your password.',
-          prefixIcon: const Icon(
-            Icons.lock,
-            size: 30,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/password.png",
+                width: 30, height: 30),
           ),
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
@@ -141,15 +151,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8)))),
       obscureText: _passwordInvisible,
       textInputAction: TextInputAction.done,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => Validation.validatePassword(value),
     );
   }
 
-  Text agreementText() {
+  Widget agreementText() {
     return const Text(
         "By clicking the Register button, you agree to the public offer");
   }
 
-  ElevatedButton registerButton() {
+  Widget registerButton() {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: Get.theme.primaryColor,
@@ -168,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ));
   }
 
-  Row loginLink() {
+  Widget loginLink() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

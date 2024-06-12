@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:evaluation_task_ecommerce/Screens/SplashScreen.dart';
+import 'package:evaluation_task_ecommerce/screens/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.fade,
-      home: const SplashScreen(),
+      home: SplashScreen(),
       theme: myTheme,
     );
   }

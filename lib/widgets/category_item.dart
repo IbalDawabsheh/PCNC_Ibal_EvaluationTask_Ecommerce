@@ -1,4 +1,4 @@
-import 'package:evaluation_task_ecommerce/Screens/ProductsScreen.dart';
+import 'package:evaluation_task_ecommerce/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,19 +42,6 @@ class CategoryItem extends StatelessWidget {
                   }),
             ),
           ),
-
-          // Used ClipRRect instead of CircleAvatar because errorBuilder does not work in CircleAvatar for some reason..
-
-          // CircleAvatar(
-          //   radius: 25,
-          //   backgroundImage: Image.network(image,
-          //       errorBuilder: (context, error, stackTrace) => Icon(Icons.error,
-          //           size: 80, color: Get.theme.colorScheme.error),
-          //       loadingBuilder: (context, child, loadingProgress) {
-          //         if (loadingProgress == null) return child;
-          //         return const Center(child: CircularProgressIndicator());
-          //       }).image,
-          // ),
           Text(name)
         ],
       ),

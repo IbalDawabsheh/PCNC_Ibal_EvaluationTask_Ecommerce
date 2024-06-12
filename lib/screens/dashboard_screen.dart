@@ -1,68 +1,55 @@
-import 'package:evaluation_task_ecommerce/Screens/CategoriesScreen.dart';
-import 'package:evaluation_task_ecommerce/Screens/LoginScreen.dart';
-import 'package:evaluation_task_ecommerce/Screens/SearchScreen.dart';
-import 'package:evaluation_task_ecommerce/api/ApiFetch.dart';
-import 'package:evaluation_task_ecommerce/widgets/AppBar.dart';
-import 'package:evaluation_task_ecommerce/widgets/CategoryItem.dart';
-import 'package:evaluation_task_ecommerce/widgets/Drawer.dart';
-import 'package:evaluation_task_ecommerce/widgets/NavBar.dart';
-import 'package:evaluation_task_ecommerce/widgets/ProductCard.dart';
+import 'package:evaluation_task_ecommerce/controllers/dashboard_controller.dart';
+import 'package:evaluation_task_ecommerce/screens/categories_screen.dart';
+import 'package:evaluation_task_ecommerce/screens/search_screen.dart';
+import 'package:evaluation_task_ecommerce/widgets/app_bar.dart';
+import 'package:evaluation_task_ecommerce/widgets/category_item.dart';
+import 'package:evaluation_task_ecommerce/widgets/drawer.dart';
+import 'package:evaluation_task_ecommerce/widgets/nav_bar.dart';
+import 'package:evaluation_task_ecommerce/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final ApiController controller = Get.put(ApiController());
-
-  @override
-  void initState() {
-    checkLoginStatus();
-    super.initState();
-  }
-
-  checkLoginStatus() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("refresh_token") == null) {
-      Get.offAll(() => const LoginScreen());
-    }
-  }
+  final DashboardController controller = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: buildAppBar(controller.avatar.text),
-          drawer: buildDrawer(),
+          appBar: buildAppBar(controller.avatar.text, context),
+          drawer: buildDrawer(context),
           bottomNavigationBar: buildNavBar(),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: categoriesText(),
-                ),
-                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48.0),
                   child: searchBar(),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: categoriesText(),
+                ),
                 categoriesSection(),
-                const SizedBox(height: 30),
-                productsSection(false),
-                trendingSection(),
                 const SizedBox(height: 20),
                 productsSection(true),
+                trendingSection(),
+                const SizedBox(height: 20),
+                productsSection(false),
               ],
             ),
           ),
         ));
   }
 
-  SearchBar searchBar() {
+  Widget searchBar() {
     return SearchBar(
       onTap: () {
         Get.to(() => SearchScreen());
@@ -77,7 +64,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Row categoriesText() {
+  Widget categoriesText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -97,7 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  SingleChildScrollView categoriesSection() {
+  Widget categoriesSection() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
@@ -111,9 +98,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  SingleChildScrollView productsSection(bool offset) {
-    RxList<dynamic> selectedList =
-        offset ? controller.productsOffset : controller.products;
+  Widget productsSection(bool showIcons) {
+    RxList<dynamic> selectedList = controller.products;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
@@ -121,20 +107,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Row(
             children: selectedList
                 .map((p) => ProductCard(
+                    showIcons: showIcons,
                     title: p.title,
                     description: p.title,
                     price: p.price,
-                    image: p.images.first
-                        .toString()
-                        .replaceAll('[', "")
-                        .replaceAll('"', "")
-                        .replaceAll("]", "")))
+                    image: p.images.first.toString()))
                 .toList()),
       ),
     );
   }
 
-  Padding trendingSection() {
+  Widget trendingSection() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
