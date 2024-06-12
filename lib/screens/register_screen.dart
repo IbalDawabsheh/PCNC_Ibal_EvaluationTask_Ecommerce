@@ -12,7 +12,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool _passwordInvisible = true;
   final RegisterController controller = Get.put(RegisterController());
 
   @override
@@ -112,15 +111,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
             onPressed: () {
-              setState(() {
-                _passwordInvisible = !_passwordInvisible;
-              });
+              controller.toggleVisibility();
             },
           ),
           contentPadding: const EdgeInsets.all(16),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
-      obscureText: _passwordInvisible,
+      obscureText: controller.passwordInvisible.value,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) => Validation.validatePassword(value),
@@ -141,15 +138,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.visibility),
             onPressed: () {
-              setState(() {
-                _passwordInvisible = !_passwordInvisible;
-              });
+              controller.toggleVisibility();
             },
           ),
           contentPadding: const EdgeInsets.all(16),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)))),
-      obscureText: _passwordInvisible,
+      obscureText: controller.passwordInvisible.value,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) => Validation.validateConfirmPassword(

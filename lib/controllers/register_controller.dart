@@ -12,6 +12,7 @@ class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
+  RxBool passwordInvisible = true.obs;
 
   @override
   void onClose() {
@@ -40,5 +41,9 @@ class RegisterController extends GetxController {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  bool toggleVisibility() {
+    return passwordInvisible.value = !passwordInvisible.value;
   }
 }
